@@ -1,9 +1,25 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+// ----------------------------------- Packages ------------------------------------
 
-export default class MyDocument extends Document {
+import Document, {
+	Html,
+	Head,
+	Main,
+	NextScript,
+	DocumentProps,
+	DocumentContext
+} from 'next/document'
+
+// ----------------------------------- Locals ------------------------------------
+
+// ----------------------------------- ------ ------------------------------------
+
+// Document is only rendered in the server, event handlers like onClick won't work.
+export default class MyDocument extends Document<DocumentProps> {
+	renderDocument() {}
 	render() {
 		return (
 			<Html lang="en">
+				{/*can use DOMAttributes*/}
 				<Head>
 					<head>
 						<meta charSet="utf-8" />
@@ -11,7 +27,7 @@ export default class MyDocument extends Document {
 						<meta name="author" content="" />
 						<meta name="description" content="" />
 						<meta name="keywords" content="" />
-						<title>Minal - Minimal One Page Portfolio Template</title>
+						<title>From Document</title>
 						<meta
 							http-equiv="content-type"
 							content="text/html; charset=utf-8"
@@ -48,4 +64,14 @@ export default class MyDocument extends Document {
 			</Html>
 		)
 	}
+}
+
+// -------------------------------------------------------------------
+
+// ctx.renderPage() is for usage with css-in-js libraries that need to
+// wrap the application to properly work with server-side rendering.
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
+	// console.log(ctx)
+	const initialProps = await Document.getInitialProps(ctx)
+	return { ...initialProps }
 }

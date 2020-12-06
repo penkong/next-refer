@@ -1,6 +1,8 @@
 // ------------------------- Pages ------------------------
 
+import axios from 'axios'
 import { GetServerSideProps, NextPage } from 'next'
+import { useEffect } from 'react'
 
 // ------------------------- Locals -----------------------
 
@@ -12,8 +14,18 @@ interface IAppProps extends IPassingProps, GetServerSideProps {}
 // ---------------------------------------------------------------------
 
 const About: NextPage<IAppProps, IPassingProps> = props => {
+	// serverless style . must called on client side .
+	useEffect(() => {
+		const apiCaller = async () => {
+			const { data } = await axios.get('/api/hello')
+			console.log(data)
+		}
+		apiCaller()
+	}, [])
 	return <div>hellow</div>
 }
+
+// -----------------------------------------------------------------------
 
 // About.getInitialProps = async (context: NextPageContext) => {}
 // pathName and AppTree does not exist on NextPageContext.
@@ -31,5 +43,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 		props: {}
 	}
 }
+
+// -----------------------------------------------------------------------
 
 export default About

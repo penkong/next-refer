@@ -2,7 +2,7 @@
 import { IncomingMessage, ServerResponse } from 'http'
 
 export default (req: IncomingMessage, res: ServerResponse): any => {
-	const body = 'hello world'
+	const body = 'hello worlddddd'
 	if (req.method === 'GET')
 		res
 			.writeHead(200, {
