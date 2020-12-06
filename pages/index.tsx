@@ -5,17 +5,20 @@ import {
 	NextPageContext
 } from 'next'
 import Head from 'next/head'
+import { useEffect } from 'react'
 import { initializeStore } from '../redux'
 import styles from '../styles/Home.module.css'
 // ------------------------------ ---------------------- --------
 
 interface PassingProps {}
 
-type AppProps = NextPage & PassingProps & GetServerSideProps
+// type AppProps = NextPage & PassingProps & GetServerSideProps
+interface AppProps extends PassingProps, GetServerSideProps {}
 
 // ---------------------------------------------------------------------
 
-const Home: React.FunctionComponent<AppProps> = () => {
+const Home: NextPage<AppProps, PassingProps> = props => {
+	useEffect(() => {}, [])
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -80,6 +83,7 @@ const Home: React.FunctionComponent<AppProps> = () => {
 
 export const getServerSideProps: GetServerSideProps = async context => {
 	// const reduxStore = initializeStore()
+
 	// const { dispatch } = reduxStore
 	// dispatch({
 	//   type: 'TICK',
@@ -89,9 +93,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
 	// return { props: { initialReduxState: reduxStore.getState() } }
 	// console.log(context, 'from home page')
-	const res = await fetch('https://api.github.com/repos/vercel/next.js')
-	const json = await res.json()
-	console.log(json)
 	return {
 		props: {} // will be passed to the page component as props
 	}
