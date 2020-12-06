@@ -1,18 +1,13 @@
 // --------------------- Packages -----------------------
 
-import { NextPageContext } from 'next'
 import { AppContext, AppProps } from 'next/app'
-import { Router } from 'next/dist/client/router'
 import { Provider } from 'react-redux'
 import 'tailwindcss/tailwind.css'
 
 // --------------------- Locals -------------------------
 
 import { useStore } from '../redux'
-import {
-	AppContextType,
-	AppInitialProps
-} from 'next/dist/next-server/lib/utils'
+import { AppInitialProps } from 'next/dist/next-server/lib/utils'
 
 // ------------------------------------------------------
 
@@ -22,8 +17,12 @@ interface IPassingProps {
 
 // also there is err field on AppProps
 interface IProps extends IPassingProps, AppProps {}
+
+// ------------------------------------------------------
+
 function MyApp({ Component, pageProps, router, currentUser }: IProps) {
-	const store = useStore(pageProps.initialReduxState)
+	// const store = useStore(pageProps.initialReduxState)
+	const store = useStore({})
 	return (
 		<Provider store={store}>
 			{/*<Header currentUser={currentUser}/>*/}
@@ -37,7 +36,7 @@ function MyApp({ Component, pageProps, router, currentUser }: IProps) {
 // AppContext is with advanced Router
 MyApp.getInitialProps = async (
 	appContext: AppContext
-): Promise<AppInitialProps> => {
+): Promise<AppInitialProps & IPassingProps> => {
 	// how add current user to header
 	// const { data } = await buildClient(appContext.ctx).get(
 	//   '/api/users/currentuser'

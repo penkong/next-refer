@@ -1,35 +1,35 @@
-import { GetServerSideProps, NextPage } from 'next'
-import Head from 'next/head'
-import { useEffect } from 'react'
-import styles from '../styles/Home.module.css'
-// ------------------------------ ---------------------- --------
+// ------------------------- Pages ------------------------
 
-interface PassingProps {}
+import { GetServerSideProps, NextPage } from 'next'
+
+// ------------------------- Locals -----------------------
+
+interface IPassingProps {}
 
 // type AppProps = NextPage & PassingProps & GetServerSideProps
-interface AppProps extends PassingProps, GetServerSideProps {}
+interface IAppProps extends IPassingProps, GetServerSideProps {}
 
 // ---------------------------------------------------------------------
 
-const Sth: NextPage<AppProps, PassingProps> = props => {
+const About: NextPage<IAppProps, IPassingProps> = props => {
 	return <div>hellow</div>
 }
 
+// About.getInitialProps = async (context: NextPageContext) => {}
+// pathName and AppTree does not exist on NextPageContext.
 export const getServerSideProps: GetServerSideProps = async context => {
 	// const reduxStore = initializeStore()
-
 	// const { dispatch } = reduxStore
 	// dispatch({
 	//   type: 'TICK',
 	//   light: false,
 	//   lastUpdate: Date.now(),
 	// })
-
 	// return { props: { initialReduxState: reduxStore.getState() } }
-	// console.log(context, 'from home page')
 	return {
-		props: {} // will be passed to the page component as props
+		// will be passed to the page component as props
+		props: {}
 	}
 }
 
-export default Sth
+export default About
